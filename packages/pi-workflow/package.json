@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/zenspc/pi-extensions/issues"
   },
-  "homepage": "https://github.com/zenspc/pi-extensions/tree/master/packages/pi-workflow#readme",
+  "homepage": "https://github.com/zenspc/pi-extensions/tree/main/packages/pi-workflow#readme",
   "publishConfig": {
     "access": "public"
   },

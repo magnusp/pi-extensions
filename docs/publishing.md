@@ -6,9 +6,9 @@ This monorepo uses **independent package versions**, **changeset-driven Version 
 
 Canonical path from monorepo changes to public npm packages and GitHub Releases under `@zenspc`:
 
-1. Land changes on `master` with a **changeset** (`.changeset/*.md`)
+1. Land changes on `main` with a **changeset** (`.changeset/*.md`)
 2. **Version packages** PR bumps only changed packages and writes changelogs
-3. After that Version PR merges, CI creates missing tags `@zenspc/<pkg>@<version>` on `master`
+3. After that Version PR merges, CI creates missing tags `@zenspc/<pkg>@<version>` on `main`
 4. Tag push (via `RELEASE_TOKEN` PAT) starts **Publish package** once per tag
 5. **Publish package** runs `npm publish` + creates a matching GitHub Release
 
@@ -54,7 +54,7 @@ pnpm changeset
 
 Select the packages, bump type, and a short summary. Commit the file under `.changeset/`.
 
-On push to `master`, `.github/workflows/release-pr.yml` does one of two things:
+On push to `main`, `.github/workflows/release-pr.yml` does one of two things:
 
 1. **Pending changesets** (`hasChangesets=true`): open or update the **Version packages** PR only.
    No tags, no publish.
@@ -147,7 +147,7 @@ Caution: `pnpm -r publish` attempts every non-private package. Prefer per-packag
 ## First-time bootstrap
 
 1. Confirm `@zenspc` ownership and create a granular automation token → repo secret `NPM_TOKEN`.
-2. Merge Changesets + publish workflows to `master`.
+2. Merge Changesets + publish workflows to `main`.
 3. For already-correct unpublished versions, create tags without a bump:
 
 ```bash
@@ -201,7 +201,7 @@ After a package is on npm:
 
 ## Branch protection (recommended)
 
-On the default branch (`master`):
+On the default branch (`main`):
 
 - Require a pull request before merging (already enabled)
 - Require status check **CI** / `pnpm check` to pass before merge when checks are required

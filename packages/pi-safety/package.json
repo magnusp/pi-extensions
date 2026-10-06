@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/zenspc/pi-extensions/issues"
   },
-  "homepage": "https://github.com/zenspc/pi-extensions/tree/master/packages/pi-safety#readme",
+  "homepage": "https://github.com/zenspc/pi-extensions/tree/main/packages/pi-safety#readme",
   "publishConfig": {
     "access": "public"
   },

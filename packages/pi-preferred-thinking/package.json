@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/zenspc/pi-extensions/issues"
   },
-  "homepage": "https://github.com/zenspc/pi-extensions/tree/master/packages/pi-preferred-thinking#readme",
+  "homepage": "https://github.com/zenspc/pi-extensions/tree/main/packages/pi-preferred-thinking#readme",
   "publishConfig": {
     "access": "public"
   },

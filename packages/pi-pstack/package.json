@@ -13,7 +13,7 @@
 	"bugs": {
 		"url": "https://github.com/zenspc/pi-extensions/issues"
 	},
-	"homepage": "https://github.com/zenspc/pi-extensions/tree/master/packages/pi-pstack#readme",
+	"homepage": "https://github.com/zenspc/pi-extensions/tree/main/packages/pi-pstack#readme",
 	"publishConfig": {
 		"access": "public"
 	},

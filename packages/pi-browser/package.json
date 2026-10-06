@@ -20,7 +20,7 @@
 	"bugs": {
 		"url": "https://github.com/zenspc/pi-extensions/issues"
 	},
-	"homepage": "https://github.com/zenspc/pi-extensions/tree/master/packages/pi-browser#readme",
+	"homepage": "https://github.com/zenspc/pi-extensions/tree/main/packages/pi-browser#readme",
 	"publishConfig": {
 		"access": "public"
 	},

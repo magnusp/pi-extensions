@@ -3,7 +3,6 @@ name: Release PR
 on:
   push:
     branches:
-      - master
       - main
 
 concurrency:
