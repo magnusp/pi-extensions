@@ -1,5 +1,5 @@
 {
-  "name": "@zenspc/pi-safety",
+  "name": "@magnusp/pi-safety",
   "version": "0.1.2",
   "description": "Confirm destructive bash and git actions before Pi runs them",
   "keywords": [
@@ -11,13 +11,13 @@
   "author": "dhairyaar",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zenspc/pi-extensions.git",
+    "url": "git+https://github.com/magnusp/pi-extensions.git",
     "directory": "packages/pi-safety"
   },
   "bugs": {
-    "url": "https://github.com/zenspc/pi-extensions/issues"
+    "url": "https://github.com/magnusp/pi-extensions/issues"
   },
-  "homepage": "https://github.com/zenspc/pi-extensions/tree/main/packages/pi-safety#readme",
+  "homepage": "https://github.com/magnusp/pi-extensions/tree/main/packages/pi-safety#readme",
   "publishConfig": {
     "access": "public"
   },

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Create missing annotated git tags for workspace packages:
- *   @zenspc/<name>@<version>
+ *   @magnusp/<name>@<version>
  *
  * Usage:
  *   node scripts/tag-packages.mjs           # print tags that would be created
@@ -19,7 +19,7 @@ const push = process.argv.includes("--push");
 
 function existingTags() {
   try {
-    const out = execFileSync("git", ["tag", "--list", "@zenspc/*"], {
+    const out = execFileSync("git", ["tag", "--list", "@magnusp/*"], {
       cwd: root,
       encoding: "utf8",
     });
@@ -38,7 +38,7 @@ function listPackages() {
     if (!existsSync(pkgPath)) continue;
     const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
     if (pkg.private) continue;
-    if (!pkg.name?.startsWith("@zenspc/") || !pkg.version) continue;
+    if (!pkg.name?.startsWith("@magnusp/") || !pkg.version) continue;
     tags.push({ name: pkg.name, version: pkg.version, tag: `${pkg.name}@${pkg.version}` });
   }
   return tags;

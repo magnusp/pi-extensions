@@ -1,4 +1,4 @@
-# @zenspc/pi-spinner
+# @magnusp/pi-spinner
 
 ## 0.5.0
 
@@ -39,7 +39,7 @@
 
 ### Minor Changes
 
-- Add `@zenspc/pi-spinner` for customizable streaming spinner animation and message rotation.
+- Add `@magnusp/pi-spinner` for customizable streaming spinner animation and message rotation.
 
   - 7 built-in animation presets: `braille`, `dots`, `arrows`, `bars`, `progress`, `rainbow`, `minimal`
   - Rotating message list with a configurable cycle interval (1.5-15s)

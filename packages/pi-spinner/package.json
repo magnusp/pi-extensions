@@ -1,5 +1,5 @@
 {
-	"name": "@zenspc/pi-spinner",
+	"name": "@magnusp/pi-spinner",
 	"version": "0.5.0",
 	"description": "Customize pi's streaming spinner animation and rotate through a user-defined message list.",
 	"type": "module",
@@ -7,13 +7,13 @@
 	"author": "dhairyaar",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/zenspc/pi-extensions.git",
+		"url": "git+https://github.com/magnusp/pi-extensions.git",
 		"directory": "packages/pi-spinner"
 	},
 	"bugs": {
-		"url": "https://github.com/zenspc/pi-extensions/issues"
+		"url": "https://github.com/magnusp/pi-extensions/issues"
 	},
-	"homepage": "https://github.com/zenspc/pi-extensions/tree/main/packages/pi-spinner#readme",
+	"homepage": "https://github.com/magnusp/pi-extensions/tree/main/packages/pi-spinner#readme",
 	"publishConfig": {
 		"access": "public"
 	},

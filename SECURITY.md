@@ -6,14 +6,14 @@ This monorepo is pre-1.0.
 
 Security fixes are applied only to the **latest published version** of each package:
 
-- `@zenspc/pi-safety`
-- `@zenspc/pi-workflow`
-- `@zenspc/pi-devtools`
-- `@zenspc/pi-preferred-thinking`
-- `@zenspc/pi-copilot-discovery`
-- `@zenspc/pi-spinner`
-- `@zenspc/pi-quiet`
-- `@zenspc/pi-sticky-editor`
+- `@magnusp/pi-safety`
+- `@magnusp/pi-workflow`
+- `@magnusp/pi-devtools`
+- `@magnusp/pi-preferred-thinking`
+- `@magnusp/pi-copilot-discovery`
+- `@magnusp/pi-spinner`
+- `@magnusp/pi-quiet`
+- `@magnusp/pi-sticky-editor`
 
 Older published versions are not maintained with backports unless a release note says otherwise.
 
@@ -23,7 +23,7 @@ Please report security issues **privately**. Do not open a public GitHub issue f
 
 Preferred:
 
-1. Use [GitHub Private Vulnerability Reporting](https://github.com/zenspc/pi-extensions/security/advisories/new) when it is enabled for this repository.
+1. Use [GitHub Private Vulnerability Reporting](https://github.com/magnusp/pi-extensions/security/advisories/new) when it is enabled for this repository.
 2. Otherwise contact the maintainers privately via GitHub: [@dhairyaar](https://github.com/dhairyaar).
 
 Include:
@@ -55,14 +55,14 @@ Bugs that allow **unintended** secret exfiltration (for example, leaking credent
 
 If a published package version is broken or unsafe, ship a fixed version immediately.
 Unpublish is limited by npm policy after a short window.
-Deprecate the bad version with `npm deprecate @zenspc/<pkg>@<ver> "reason; use @zenspc/<pkg>@X.Y.Z"`.
+Deprecate the bad version with `npm deprecate @magnusp/<pkg>@<ver> "reason; use @magnusp/<pkg>@X.Y.Z"`.
 If a tarball leaked tokens or secrets, rotate credentials and report via the private channel above.
 
 ## Non-vulnerabilities
 
 The following are expected product behavior, not security bugs:
 
-- Intentional local context dumps in `@zenspc/pi-devtools` (`prompt full`, expanded prompt view, `memory <substr>`)
+- Intentional local context dumps in `@magnusp/pi-devtools` (`prompt full`, expanded prompt view, `memory <substr>`)
 - User-disabled safety guard (`~/.pi/agent/safety-guard.json` with `"enabled": false`)
 - Upstream Copilot/GitHub outages, rate limits, or policy denials
 - Missing models due to tenant entitlements or account configuration

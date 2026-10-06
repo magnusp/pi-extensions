@@ -80,7 +80,7 @@ describe("captureIsComplete", () => {
 		assert.equal(captureIsComplete(resources), true);
 		resources.extensions = ["packages/pi-devtools/extensions/welcome-header.ts"];
 		assert.equal(captureIsComplete(resources), true);
-		resources.extensions = ["@zenspc/pi-devtools/welcome-header"];
+		resources.extensions = ["@magnusp/pi-devtools/welcome-header"];
 		assert.equal(captureIsComplete(resources), true);
 	});
 

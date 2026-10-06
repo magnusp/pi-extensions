@@ -1,4 +1,4 @@
-# @zenspc/pi-devtools
+# @magnusp/pi-devtools
 
 ## 0.4.0
 

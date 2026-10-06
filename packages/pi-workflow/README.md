@@ -1,11 +1,11 @@
-# @zenspc/pi-workflow
+# @magnusp/pi-workflow
 
 Plan mode for read-only exploration and tracked plan execution in Pi.
 
 ## Install
 
 ```bash
-pi install npm:@zenspc/pi-workflow
+pi install npm:@magnusp/pi-workflow
 ```
 
 Local development:

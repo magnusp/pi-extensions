@@ -1,5 +1,5 @@
 {
-  "name": "@zenspc/pi-preferred-thinking",
+  "name": "@magnusp/pi-preferred-thinking",
   "version": "0.2.1",
   "description": "Model-specific thinking level preferences for Pi",
   "keywords": [
@@ -13,13 +13,13 @@
   "author": "dhairyaar",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zenspc/pi-extensions.git",
+    "url": "git+https://github.com/magnusp/pi-extensions.git",
     "directory": "packages/pi-preferred-thinking"
   },
   "bugs": {
-    "url": "https://github.com/zenspc/pi-extensions/issues"
+    "url": "https://github.com/magnusp/pi-extensions/issues"
   },
-  "homepage": "https://github.com/zenspc/pi-extensions/tree/main/packages/pi-preferred-thinking#readme",
+  "homepage": "https://github.com/magnusp/pi-extensions/tree/main/packages/pi-preferred-thinking#readme",
   "publishConfig": {
     "access": "public"
   },

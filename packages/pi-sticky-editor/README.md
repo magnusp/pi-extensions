@@ -1,4 +1,4 @@
-# @zenspc/pi-sticky-editor
+# @magnusp/pi-sticky-editor
 
 > **No longer maintained.** This functionality is now officially supported by Pi.
 > The package stays installable, but issues and PRs here will not be acted on.
@@ -15,7 +15,7 @@ Peer floor is `>=0.80.0` (raised above the monorepo `*` convention because this 
 ## Install
 
 ```bash
-pi install npm:@zenspc/pi-sticky-editor
+pi install npm:@magnusp/pi-sticky-editor
 ```
 
 Local development:

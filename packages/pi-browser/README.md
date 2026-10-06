@@ -1,4 +1,4 @@
-# @zenspc/pi-browser
+# @magnusp/pi-browser
 
 A Pi extension that lets the agent drive a dedicated Chrome with full automation, gated by per-domain approval.
 
@@ -15,7 +15,7 @@ The window stays up when Pi exits.
 1. Install the extension:
 
 	```bash
-	pi install npm:@zenspc/pi-browser
+	pi install npm:@magnusp/pi-browser
 	```
 
 2. Call any browser tool.

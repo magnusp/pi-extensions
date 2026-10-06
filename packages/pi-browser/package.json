@@ -1,5 +1,5 @@
 {
-	"name": "@zenspc/pi-browser",
+	"name": "@magnusp/pi-browser",
 	"version": "0.5.0",
 	"description": "Drive a dedicated Chrome with full automation, gated by per-domain approval",
 	"keywords": [
@@ -14,13 +14,13 @@
 	"author": "dhairyaar",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/zenspc/pi-extensions.git",
+		"url": "git+https://github.com/magnusp/pi-extensions.git",
 		"directory": "packages/pi-browser"
 	},
 	"bugs": {
-		"url": "https://github.com/zenspc/pi-extensions/issues"
+		"url": "https://github.com/magnusp/pi-extensions/issues"
 	},
-	"homepage": "https://github.com/zenspc/pi-extensions/tree/main/packages/pi-browser#readme",
+	"homepage": "https://github.com/magnusp/pi-extensions/tree/main/packages/pi-browser#readme",
 	"publishConfig": {
 		"access": "public"
 	},

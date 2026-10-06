@@ -1,11 +1,11 @@
-# @zenspc/pi-spinner
+# @magnusp/pi-spinner
 
 Replaces pi's default "Working..." loader text and braille spinner with a user-chosen animation preset and a rotating message list.
 
 ## Install
 
 ```bash
-pi install npm:@zenspc/pi-spinner
+pi install npm:@magnusp/pi-spinner
 ```
 
 Local development from this monorepo:

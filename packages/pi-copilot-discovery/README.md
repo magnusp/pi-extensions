@@ -55,13 +55,13 @@ intact — this is a drop-in upgrade of the provider, not a parallel one.
 ### As a pi package (recommended)
 
 ```bash
-pi install npm:@zenspc/pi-copilot-discovery
+pi install npm:@magnusp/pi-copilot-discovery
 ```
 
 Or try it for one session without installing:
 
 ```bash
-pi -e npm:@zenspc/pi-copilot-discovery
+pi -e npm:@magnusp/pi-copilot-discovery
 ```
 
 ### From this monorepo (git or path)
@@ -69,7 +69,7 @@ pi -e npm:@zenspc/pi-copilot-discovery
 Install only this package from a local checkout:
 
 ```bash
-git clone https://github.com/zenspc/pi-extensions.git
+git clone https://github.com/magnusp/pi-extensions.git
 pi install ./pi-extensions/packages/pi-copilot-discovery
 # or one-shot:
 pi -e ./pi-extensions/packages/pi-copilot-discovery
@@ -81,7 +81,7 @@ Or install the whole monorepo and filter to this extension:
 {
   "packages": [
     {
-      "source": "git:github.com/zenspc/pi-extensions",
+      "source": "git:github.com/magnusp/pi-extensions",
       "extensions": ["packages/pi-copilot-discovery/src/index.ts"]
     }
   ]
@@ -245,7 +245,7 @@ Caveats:
 ### Trust boundary
 
 - Installing this package replaces/overrides the built-in `github-copilot` provider registration path (same provider name).
-- Install only from the trusted `@zenspc` npm scope or this GitHub org/repo.
+- Install only from the trusted `@magnusp` npm scope or this GitHub org/repo.
 
 ## Compatibility
 
@@ -259,7 +259,7 @@ Caveats:
 
 ## Publishing
 
-This package lives in the [`zenspc/pi-extensions`](https://github.com/zenspc/pi-extensions) monorepo.
+This package lives in the [`magnusp/pi-extensions`](https://github.com/magnusp/pi-extensions) monorepo.
 
 See [docs/publishing.md](../../docs/publishing.md) for monorepo publish steps.
 

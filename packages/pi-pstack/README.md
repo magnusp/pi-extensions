@@ -1,4 +1,4 @@
-# @zenspc/pi-pstack
+# @magnusp/pi-pstack
 
 pstack for Pi: rigorous agent workflows you can parallelize with confidence. Ported from the Cursor pstack plugin.
 
@@ -7,7 +7,7 @@ If you want to go fast, go deep first. pstack helps you write less, but higher q
 ## Install
 
 ```bash
-pi install npm:@zenspc/pi-pstack
+pi install npm:@magnusp/pi-pstack
 ```
 
 Requires [`pi-subagents`](https://www.npmjs.com/package/pi-subagents) for the `poteto-agent`, `comment-sicko`, and workflow fan-outs (`how`, `why`, `arena`, `swarm`, `interrogate`, `reflect`).

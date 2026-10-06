@@ -1,4 +1,4 @@
-# @zenspc/pi-safety
+# @magnusp/pi-safety
 
 ## 0.1.2
 

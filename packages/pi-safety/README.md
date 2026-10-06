@@ -1,11 +1,11 @@
-# @zenspc/pi-safety
+# @magnusp/pi-safety
 
 Confirm destructive bash and git actions before Pi runs them.
 
 ## Install
 
 ```bash
-pi install npm:@zenspc/pi-safety
+pi install npm:@magnusp/pi-safety
 ```
 
 Local development:

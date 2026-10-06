@@ -1,5 +1,5 @@
 {
-	"name": "@zenspc/pi-quiet",
+	"name": "@magnusp/pi-quiet",
 	"version": "0.4.1",
 	"description": "Quiet Display for Pi: verb-first tool rows (built-in + Foreign), Verb Groups, sticky on/off.",
 	"type": "module",
@@ -7,13 +7,13 @@
 	"author": "dhairyaar",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/zenspc/pi-extensions.git",
+		"url": "git+https://github.com/magnusp/pi-extensions.git",
 		"directory": "packages/pi-quiet"
 	},
 	"bugs": {
-		"url": "https://github.com/zenspc/pi-extensions/issues"
+		"url": "https://github.com/magnusp/pi-extensions/issues"
 	},
-	"homepage": "https://github.com/zenspc/pi-extensions/tree/main/packages/pi-quiet#readme",
+	"homepage": "https://github.com/magnusp/pi-extensions/tree/main/packages/pi-quiet#readme",
 	"publishConfig": {
 		"access": "public"
 	},

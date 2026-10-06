@@ -1,6 +1,6 @@
 # Pi Extensions
 
-Installable packages for the [Pi coding agent](https://pi.dev), published under `@zenspc`.
+Installable packages for the [Pi coding agent](https://pi.dev), published under `@magnusp` and based on [original work](https://github.com/zenspc/pi-extensions) by `@zenspc`.
 
 > **Unmaintained:** `pi-copilot-discovery`, `pi-sticky-editor`, and `pi-preferred-thinking` are now officially supported by Pi itself. They remain installable but are no longer maintained in this monorepo.
 
@@ -8,16 +8,16 @@ Installable packages for the [Pi coding agent](https://pi.dev), published under 
 
 | Package | Install | What you get |
 |---|---|---|
-| [`@zenspc/pi-safety`](./packages/pi-safety) | `pi install npm:@zenspc/pi-safety` | Confirm destructive bash/git actions |
-| [`@zenspc/pi-workflow`](./packages/pi-workflow) | `pi install npm:@zenspc/pi-workflow` | Plan mode + tracked execution |
-| [`@zenspc/pi-devtools`](./packages/pi-devtools) | `pi install npm:@zenspc/pi-devtools` | `/context` report + richer footer |
-| [`@zenspc/pi-preferred-thinking`](./packages/pi-preferred-thinking) | `pi install npm:@zenspc/pi-preferred-thinking` | Per-model thinking level preferences (**unmaintained**, now built into Pi) |
-| [`@zenspc/pi-copilot-discovery`](./packages/pi-copilot-discovery) | `pi install npm:@zenspc/pi-copilot-discovery` | Live GitHub Copilot model discovery (**unmaintained**, now built into Pi) |
-| [`@zenspc/pi-spinner`](./packages/pi-spinner) | `pi install npm:@zenspc/pi-spinner` | Customize the spinner animation and rotate the loader message |
-| [`@zenspc/pi-quiet`](./packages/pi-quiet) | `pi install npm:@zenspc/pi-quiet` | Quiet Display - dense built-in tool rows |
-| [`@zenspc/pi-sticky-editor`](./packages/pi-sticky-editor) | `pi install npm:@zenspc/pi-sticky-editor` | Keep the editor and footer fixed while the transcript scrolls (**unmaintained**, now built into Pi) |
-| [`@zenspc/pi-pstack`](./packages/pi-pstack) | `pi install npm:@zenspc/pi-pstack` | pstack skills + subagents: poteto-mode playbooks, engineering principles, multi-model review panels |
-| [`@zenspc/pi-browser`](./packages/pi-browser) | `pi install npm:@zenspc/pi-browser` | Drive a dedicated Chrome with per-domain approval |
+| [`@magnusp/pi-safety`](./packages/pi-safety) | `pi install npm:@magnusp/pi-safety` | Confirm destructive bash/git actions |
+| [`@magnusp/pi-workflow`](./packages/pi-workflow) | `pi install npm:@magnusp/pi-workflow` | Plan mode + tracked execution |
+| [`@magnusp/pi-devtools`](./packages/pi-devtools) | `pi install npm:@magnusp/pi-devtools` | `/context` report + richer footer |
+| [`@magnusp/pi-preferred-thinking`](./packages/pi-preferred-thinking) | `pi install npm:@magnusp/pi-preferred-thinking` | Per-model thinking level preferences (**unmaintained**, now built into Pi) |
+| [`@magnusp/pi-copilot-discovery`](./packages/pi-copilot-discovery) | `pi install npm:@magnusp/pi-copilot-discovery` | Live GitHub Copilot model discovery (**unmaintained**, now built into Pi) |
+| [`@magnusp/pi-spinner`](./packages/pi-spinner) | `pi install npm:@magnusp/pi-spinner` | Customize the spinner animation and rotate the loader message |
+| [`@magnusp/pi-quiet`](./packages/pi-quiet) | `pi install npm:@magnusp/pi-quiet` | Quiet Display - dense built-in tool rows |
+| [`@magnusp/pi-sticky-editor`](./packages/pi-sticky-editor) | `pi install npm:@magnusp/pi-sticky-editor` | Keep the editor and footer fixed while the transcript scrolls (**unmaintained**, now built into Pi) |
+| [`@magnusp/pi-pstack`](./packages/pi-pstack) | `pi install npm:@magnusp/pi-pstack` | pstack skills + subagents: poteto-mode playbooks, engineering principles, multi-model review panels |
+| [`@magnusp/pi-browser`](./packages/pi-browser) | `pi install npm:@magnusp/pi-browser` | Drive a dedicated Chrome with per-domain approval |
 
 Pre-1.0 APIs may change.
 
@@ -73,7 +73,7 @@ Example: install only the context command from devtools.
 {
   "packages": [
     {
-      "source": "npm:@zenspc/pi-devtools",
+      "source": "npm:@magnusp/pi-devtools",
       "extensions": ["extensions/context-command.ts"]
     }
   ]

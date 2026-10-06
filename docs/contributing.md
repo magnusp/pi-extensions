@@ -2,7 +2,7 @@
 
 ## Layout
 
-Each publishable unit lives under `packages/<name>` and is an independent npm package under the `@zenspc` scope.
+Each publishable unit lives under `packages/<name>` and is an independent npm package under the `@magnusp` scope.
 
 ```text
 packages/

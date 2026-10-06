@@ -1,4 +1,4 @@
-# @zenspc/pi-preferred-thinking
+# @magnusp/pi-preferred-thinking
 
 > **No longer maintained.** This functionality is now officially supported by Pi.
 > The package stays installable, but issues and PRs here will not be acted on.
@@ -11,7 +11,7 @@ Invalid or missing values are ignored.
 ## Install
 
 ```bash
-pi install npm:@zenspc/pi-preferred-thinking
+pi install npm:@magnusp/pi-preferred-thinking
 ```
 
 Local development:

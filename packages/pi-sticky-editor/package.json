@@ -1,5 +1,5 @@
 {
-  "name": "@zenspc/pi-sticky-editor",
+  "name": "@magnusp/pi-sticky-editor",
   "version": "0.1.0",
   "description": "Keep the pi editor and footer fixed while the transcript scrolls.",
   "keywords": [
@@ -9,15 +9,15 @@
     "pi-package",
     "terminal"
   ],
-  "homepage": "https://github.com/zenspc/pi-extensions/tree/main/packages/pi-sticky-editor#readme",
+  "homepage": "https://github.com/magnusp/pi-extensions/tree/main/packages/pi-sticky-editor#readme",
   "bugs": {
-    "url": "https://github.com/zenspc/pi-extensions/issues"
+    "url": "https://github.com/magnusp/pi-extensions/issues"
   },
   "license": "MIT",
   "author": "dhairyaar",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zenspc/pi-extensions.git",
+    "url": "git+https://github.com/magnusp/pi-extensions.git",
     "directory": "packages/pi-sticky-editor"
   },
   "files": [

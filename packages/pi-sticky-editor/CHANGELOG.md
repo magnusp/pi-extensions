@@ -1,10 +1,10 @@
-# @zenspc/pi-sticky-editor
+# @magnusp/pi-sticky-editor
 
 ## 0.1.0
 
 ### Minor Changes
 
-- 85ddda9: Add `@zenspc/pi-sticky-editor` to keep the Pi editor and footer fixed while the transcript scrolls.
+- 85ddda9: Add `@magnusp/pi-sticky-editor` to keep the Pi editor and footer fixed while the transcript scrolls.
 
   - Splits the terminal into a scrollable transcript region and a fixed editor region
   - Keeps editor, footer, autocomplete, and above/below-editor widgets pinned

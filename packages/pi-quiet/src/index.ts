@@ -1,5 +1,5 @@
 /**
- * @zenspc/pi-quiet - Quiet Display for pi tools.
+ * @magnusp/pi-quiet - Quiet Display for pi tools.
  *
  * Default once installed: Quiet Display (verb-first rows + Verb Groups).
  * Sticky Preference: ~/.pi/agent/extensions/quiet.json

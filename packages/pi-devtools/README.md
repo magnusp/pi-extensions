@@ -1,11 +1,11 @@
-# @zenspc/pi-devtools
+# @magnusp/pi-devtools
 
 Context usage report, working-directory switching, markdown preview, richer session footer, custom welcome header, and Dracula theme for Pi.
 
 ## Install
 
 ```bash
-pi install npm:@zenspc/pi-devtools
+pi install npm:@magnusp/pi-devtools
 ```
 
 Local development:
@@ -146,7 +146,7 @@ If you already have a local `dracula` theme, remove or rename that file so the p
 {
   "packages": [
     {
-      "source": "npm:@zenspc/pi-devtools",
+      "source": "npm:@magnusp/pi-devtools",
       "extensions": ["extensions/cd-command.ts"]
     }
   ]
@@ -157,7 +157,7 @@ If you already have a local `dracula` theme, remove or rename that file so the p
 {
   "packages": [
     {
-      "source": "npm:@zenspc/pi-devtools",
+      "source": "npm:@magnusp/pi-devtools",
       "extensions": ["extensions/context-command.ts"]
     }
   ]
@@ -170,7 +170,7 @@ Or:
 {
   "packages": [
     {
-      "source": "npm:@zenspc/pi-devtools",
+      "source": "npm:@magnusp/pi-devtools",
       "extensions": ["extensions/custom-footer.ts"]
     }
   ]
@@ -181,7 +181,7 @@ Or:
 {
   "packages": [
     {
-      "source": "npm:@zenspc/pi-devtools",
+      "source": "npm:@magnusp/pi-devtools",
       "extensions": ["extensions/welcome-header.ts"]
     }
   ]
@@ -194,7 +194,7 @@ Theme only:
 {
   "packages": [
     {
-      "source": "npm:@zenspc/pi-devtools",
+      "source": "npm:@magnusp/pi-devtools",
       "extensions": [],
       "themes": ["themes/dracula.json"]
     }

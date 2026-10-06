@@ -1,4 +1,4 @@
-# @zenspc/pi-quiet
+# @magnusp/pi-quiet
 
 ## 0.4.1
 
@@ -50,7 +50,7 @@
 
 ### Minor Changes
 
-- 31d6e88: Run Compaction and Quiet chrome polish for `@zenspc/pi-quiet`.
+- 31d6e88: Run Compaction and Quiet chrome polish for `@magnusp/pi-quiet`.
 
   Adjacent same-kind success/soft tool rows fold into Group Header + Member Bullets (last-member carrier). Kind Emoji on Quiet Rows and headers. Groups rebuild from session history; whole-group expand to Stock bodies.
 
@@ -58,7 +58,7 @@
 
 ### Minor Changes
 
-- 290a6a1: Add `@zenspc/pi-quiet` for Quiet Display on Pi built-in tools.
+- 290a6a1: Add `@magnusp/pi-quiet` for Quiet Display on Pi built-in tools.
 
   Dense default-on Quiet Rows for read/bash/edit/write/find/grep/ls, Soft/Hard Breakthrough, and `/quiet` Sticky Preference.
 
@@ -66,7 +66,7 @@
 
 ### Minor Changes
 
-- Add `@zenspc/pi-quiet` for Quiet Display on Pi built-in tools.
+- Add `@magnusp/pi-quiet` for Quiet Display on Pi built-in tools.
 
   - Default-on dense Quiet Rows for `read`, `bash`, `edit`, `write`, `find`, `grep`, `ls`
   - Per-tool Success Chips (counts, diff stats, exit code); no multi-line success bodies
