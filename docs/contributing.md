@@ -2,18 +2,11 @@
 
 ## Layout
 
-Each publishable unit lives under `packages/<name>` and is an independent npm package under the `@zenspc` scope.
+Each publishable unit lives under `packages/<name>` and is an independent npm package under the `@magnusp` scope.
 
 ```text
 packages/
-  pi-safety/
-  pi-workflow/
-  pi-devtools/
-  pi-preferred-thinking/
-  pi-copilot-discovery/
-  pi-spinner/
   pi-quiet/
-  pi-sticky-editor/
   pi-pstack/
 ```
 
@@ -25,17 +18,11 @@ From the monorepo root:
 pnpm check
 
 # load one package for the current run only
-pi -e ./packages/pi-safety
-pi -e ./packages/pi-workflow
-pi -e ./packages/pi-devtools
-pi -e ./packages/pi-preferred-thinking
-pi -e ./packages/pi-copilot-discovery
-pi -e ./packages/pi-spinner
 pi -e ./packages/pi-quiet
-pi -e ./packages/pi-sticky-editor
+pi -e ./packages/pi-pstack
 
 # install from path into user settings
-pi install ./packages/pi-safety
+pi install ./packages/pi-quiet
 ```
 
 Path installs are not copied.

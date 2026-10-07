@@ -8,29 +8,29 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 
 describe("parseReleaseTag", () => {
   it("parses package tag", () => {
-    assert.deepEqual(parseReleaseTag("@zenspc/pi-safety@0.1.0"), {
-      packageName: "@zenspc/pi-safety",
-      version: "0.1.0",
+    assert.deepEqual(parseReleaseTag("@magnusp/pi-quiet@0.4.1"), {
+      packageName: "@magnusp/pi-quiet",
+      version: "0.4.1",
     });
   });
 
   it("parses prerelease", () => {
-    assert.deepEqual(parseReleaseTag("@zenspc/pi-copilot-discovery@0.3.2-rc.1"), {
-      packageName: "@zenspc/pi-copilot-discovery",
-      version: "0.3.2-rc.1",
+    assert.deepEqual(parseReleaseTag("@magnusp/pi-pstack@0.6.0-rc.1"), {
+      packageName: "@magnusp/pi-pstack",
+      version: "0.6.0-rc.1",
     });
   });
 
   it("strips refs/tags/", () => {
-    assert.deepEqual(parseReleaseTag("refs/tags/@zenspc/pi-devtools@1.2.3"), {
-      packageName: "@zenspc/pi-devtools",
+    assert.deepEqual(parseReleaseTag("refs/tags/@magnusp/pi-quiet@1.2.3"), {
+      packageName: "@magnusp/pi-quiet",
       version: "1.2.3",
     });
   });
 
   it("rejects bad tags", () => {
     assert.throws(() => parseReleaseTag("v0.1.0"), /invalid release tag/);
-    assert.throws(() => parseReleaseTag("@zenspc/pi-safety"), /invalid release tag/);
+    assert.throws(() => parseReleaseTag("@magnusp/pi-quiet"), /invalid release tag/);
     assert.throws(() => parseReleaseTag(""), /non-empty/);
   });
 });
@@ -38,10 +38,10 @@ describe("parseReleaseTag", () => {
 describe("resolvePackageDir", () => {
   const root = mkdtempSync(join(tmpdir(), "pi-ext-"));
   const packagesDir = join(root, "packages");
-  mkdirSync(join(packagesDir, "pi-safety"), { recursive: true });
+  mkdirSync(join(packagesDir, "pi-quiet"), { recursive: true });
   writeFileSync(
-    join(packagesDir, "pi-safety", "package.json"),
-    JSON.stringify({ name: "@zenspc/pi-safety", version: "0.1.0" }),
+    join(packagesDir, "pi-quiet", "package.json"),
+    JSON.stringify({ name: "@magnusp/pi-quiet", version: "0.4.1" }),
   );
 
   after(() => {
@@ -49,20 +49,20 @@ describe("resolvePackageDir", () => {
   });
 
   it("finds package by name", () => {
-    const found = resolvePackageDir(packagesDir, "@zenspc/pi-safety", {
+    const found = resolvePackageDir(packagesDir, "@magnusp/pi-quiet", {
       readdirSync,
       readFileSync,
       existsSync,
       join,
     });
-    assert.equal(found.folderName, "pi-safety");
-    assert.equal(found.packageJson.version, "0.1.0");
+    assert.equal(found.folderName, "pi-quiet");
+    assert.equal(found.packageJson.version, "0.4.1");
   });
 
   it("throws when missing", () => {
     assert.throws(
       () =>
-        resolvePackageDir(packagesDir, "@zenspc/nope", {
+        resolvePackageDir(packagesDir, "@magnusp/nope", {
           readdirSync,
           readFileSync,
           existsSync,

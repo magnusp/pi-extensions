@@ -4,11 +4,11 @@
 
 This monorepo uses **independent package versions**, **changeset-driven Version PRs**, and **per-package git tags** as the only supported release train.
 
-Canonical path from monorepo changes to public npm packages and GitHub Releases under `@zenspc`:
+Canonical path from monorepo changes to public npm packages and GitHub Releases under `@magnusp`:
 
-1. Land changes on `master` with a **changeset** (`.changeset/*.md`)
+1. Land changes on `main` with a **changeset** (`.changeset/*.md`)
 2. **Version packages** PR bumps only changed packages and writes changelogs
-3. After that Version PR merges, CI creates missing tags `@zenspc/<pkg>@<version>` on `master`
+3. After that Version PR merges, CI creates missing tags `@magnusp/<pkg>@<version>` on `main`
 4. Tag push (via `RELEASE_TOKEN` PAT) starts **Publish package** once per tag
 5. **Publish package** runs `npm publish` + creates a matching GitHub Release
 
@@ -22,12 +22,12 @@ Rules that do not change without a new plan:
 - Do not store npm tokens in the git repo
 - CI publish uses the `NPM_TOKEN` repository secret (granular automation token preferred)
 - Local `npm login` publish is emergency-only; CI is primary
-- Tag format is always `@zenspc/<name>@<semver>` (not monorepo-only `v*` tags)
+- Tag format is always `@magnusp/<name>@<semver>` (not monorepo-only `v*` tags)
 
 ## Prerequisites
 
-- npm user/org that owns `@zenspc` with 2FA enabled
-- Repo secret `NPM_TOKEN`: npm **granular automation** token (type **Automation**, not classic / publish-with-OTP) with publish rights on `@zenspc/*`
+- npm user/org that owns `@magnusp` with 2FA enabled
+- Repo secret `NPM_TOKEN`: npm **granular automation** token (type **Automation**, not classic / publish-with-OTP) with publish rights on `@magnusp/*`
   - Classic tokens and granular tokens that still require 2FA OTP will fail CI with `EOTP`
 - Repo secret `RELEASE_TOKEN`: a GitHub **personal access token** used by `release-pr.yml` (and optionally publish) instead of `GITHUB_TOKEN`
   - Required because many orgs disable "Allow GitHub Actions to create and approve pull requests", which makes `changesets/action` fail with `HttpError: GitHub Actions is not permitted to create or approve pull requests`
@@ -41,7 +41,7 @@ Rules that do not change without a new plan:
 ```bash
 npm whoami
 # Optional availability checks (404 means not published yet):
-npm view @zenspc/pi-safety version || true
+npm view @magnusp/pi-quiet version || true
 ```
 
 ## Contributor flow (version automation)
@@ -54,7 +54,7 @@ pnpm changeset
 
 Select the packages, bump type, and a short summary. Commit the file under `.changeset/`.
 
-On push to `master`, `.github/workflows/release-pr.yml` does one of two things:
+On push to `main`, `.github/workflows/release-pr.yml` does one of two things:
 
 1. **Pending changesets** (`hasChangesets=true`): open or update the **Version packages** PR only.
    No tags, no publish.
@@ -63,10 +63,8 @@ On push to `master`, `.github/workflows/release-pr.yml` does one of two things:
    Each tag push (via `RELEASE_TOKEN`) starts `publish.yml` once.
 
 ```text
-@zenspc/pi-safety@0.1.0
-@zenspc/pi-workflow@0.1.0
-@zenspc/pi-devtools@0.1.0
-@zenspc/pi-copilot-discovery@0.3.2
+@magnusp/pi-quiet@0.4.1
+@magnusp/pi-pstack@0.6.0
 ```
 
 Do not also `gh workflow run publish.yml` after the tag push.
@@ -98,12 +96,12 @@ Packages use **independent** versions.
 
 `.github/workflows/publish.yml` runs on:
 
-- `push` of tags matching `@zenspc/*@*`
+- `push` of tags matching `@magnusp/*@*`
 - `workflow_dispatch` with `tag` + optional `dry_run` (default true)
 
 For each tag it:
 
-1. Parses `@zenspc/<name>@<semver>` (`scripts/parse-release-tag.mjs`)
+1. Parses `@magnusp/<name>@<semver>` (`scripts/parse-release-tag.mjs`)
 2. Checks out the tagged commit
 3. Runs `pnpm check` and `npm pack --dry-run` in that package
 4. Fails if tag version ≠ `package.json` version
@@ -114,7 +112,7 @@ For each tag it:
 Dry-run from Actions UI:
 
 - Workflow: **Publish package**
-- Input tag: `@zenspc/pi-safety@0.1.0`
+- Input tag: `@magnusp/pi-quiet@0.4.1`
 - `dry_run`: true
 
 ## Tarball sanity
@@ -137,29 +135,29 @@ Prefer CI. If you must publish locally:
 ```bash
 npm login
 pnpm check
-pnpm --filter @zenspc/pi-safety publish --access public
-git tag -a @zenspc/pi-safety@0.1.0 -m "Release @zenspc/pi-safety 0.1.0"
-git push origin @zenspc/pi-safety@0.1.0
+pnpm --filter @magnusp/pi-quiet publish --access public
+git tag -a @magnusp/pi-quiet@0.4.1 -m "Release @magnusp/pi-quiet 0.4.1"
+git push origin @magnusp/pi-quiet@0.4.1
 ```
 
 Caution: `pnpm -r publish` attempts every non-private package. Prefer per-package or tag-driven CI.
 
 ## First-time bootstrap
 
-1. Confirm `@zenspc` ownership and create a granular automation token → repo secret `NPM_TOKEN`.
-2. Merge Changesets + publish workflows to `master`.
+1. Confirm `@magnusp` ownership and create a granular automation token → repo secret `NPM_TOKEN`.
+2. Merge Changesets + publish workflows to `main`.
 3. For already-correct unpublished versions, create tags without a bump:
 
 ```bash
 node scripts/tag-packages.mjs --apply --push
 ```
 
-Suggested first-publish order: `pi-safety`, `pi-devtools`, `pi-workflow`, then `pi-copilot-discovery`.
+Suggested first-publish order: `pi-quiet`, then `pi-pstack`.
 
 4. Confirm each tag's **Publish package** run, npm page, and:
 
 ```bash
-pi install npm:@zenspc/pi-safety
+pi install npm:@magnusp/pi-quiet
 ```
 
 5. Later releases use changesets + Version PR only.
@@ -169,7 +167,7 @@ pi install npm:@zenspc/pi-safety
 1. `git status` clean on the release commit
 2. `pnpm check` and `pnpm test`
 3. Smoke-load packages you care about with `pi -e ./packages/<name>`
-4. README install commands use `npm:@zenspc/...`
+4. README install commands use `npm:@magnusp/...`
 5. Changeset (or intentional version) is correct
 6. `npm pack --dry-run` clean
 
@@ -179,7 +177,7 @@ pi install npm:@zenspc/pi-safety
 2. Deprecate the bad version:
 
 ```bash
-npm deprecate @zenspc/<pkg>@<ver> "reason; use @zenspc/<pkg>@X.Y.Z"
+npm deprecate @magnusp/<pkg>@<ver> "reason; use @magnusp/<pkg>@X.Y.Z"
 ```
 
 3. If tokens leaked via a tarball, rotate them and treat as a security incident (see [SECURITY.md](../SECURITY.md)).
@@ -196,12 +194,12 @@ npm deprecate @zenspc/<pkg>@<ver> "reason; use @zenspc/<pkg>@X.Y.Z"
 
 After a package is on npm:
 
-- Root and package READMEs use `npm:@zenspc/...` as the primary install path.
+- Root and package READMEs use `npm:@magnusp/...` as the primary install path.
 - Keep path/git install examples under local development sections.
 
 ## Branch protection (recommended)
 
-On the default branch (`master`):
+On the default branch (`main`):
 
 - Require a pull request before merging (already enabled)
 - Require status check **CI** / `pnpm check` to pass before merge when checks are required
@@ -220,7 +218,7 @@ Admins may still bypass PR rules for emergency release infra fixes.
 ## Acceptance criteria
 
 - Version PR automation can bump packages via changesets
-- Tag `@zenspc/<pkg>@<ver>` (or workflow_dispatch) publishes that package when the version is new
+- Tag `@magnusp/<pkg>@<ver>` (or workflow_dispatch) publishes that package when the version is new
 - Matching GitHub Release exists per published tag
 - Already-published versions skip npm publish without failing the release step
 - No npm token in git; `ci.yml` does not receive `NPM_TOKEN`

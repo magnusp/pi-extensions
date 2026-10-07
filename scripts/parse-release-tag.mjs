@@ -1,9 +1,9 @@
 /**
- * Parse per-package release tags: @zenspc/<name>@<semver>
+ * Parse per-package release tags: @magnusp/<name>@<semver>
  */
 import { pathToFileURL } from "node:url";
 
-const TAG_RE = /^(@zenspc\/[a-z0-9][a-z0-9._-]*)@(\d+\.\d+\.\d+(?:-[0-9A-Za-z.+-]+)?)$/;
+const TAG_RE = /^(@magnusp\/[a-z0-9][a-z0-9._-]*)@(\d+\.\d+\.\d+(?:-[0-9A-Za-z.+-]+)?)$/;
 
 /**
  * @param {string} tag
@@ -17,7 +17,7 @@ export function parseReleaseTag(tag) {
   const match = TAG_RE.exec(normalized);
   if (!match) {
     throw new Error(
-      `invalid release tag "${normalized}"; expected @zenspc/<pkg>@<semver> (e.g. @zenspc/pi-safety@0.1.0)`,
+      `invalid release tag "${normalized}"; expected @magnusp/<pkg>@<semver> (e.g. @magnusp/pi-quiet@0.4.1)`,
     );
   }
   return { packageName: match[1], version: match[2] };

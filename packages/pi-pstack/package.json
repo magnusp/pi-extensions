@@ -1,5 +1,5 @@
 {
-	"name": "@zenspc/pi-pstack",
+	"name": "@magnusp/pi-pstack",
 	"version": "0.6.0",
 	"description": "pstack for Pi: rigorous agent workflows you can parallelize with confidence - poteto-mode playbooks, engineering principles, multi-model review panels, and subagents.",
 	"type": "module",
@@ -7,13 +7,13 @@
 	"author": "dhairyaar",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/zenspc/pi-extensions.git",
+		"url": "git+https://github.com/magnusp/pi-extensions.git",
 		"directory": "packages/pi-pstack"
 	},
 	"bugs": {
-		"url": "https://github.com/zenspc/pi-extensions/issues"
+		"url": "https://github.com/magnusp/pi-extensions/issues"
 	},
-	"homepage": "https://github.com/zenspc/pi-extensions/tree/master/packages/pi-pstack#readme",
+	"homepage": "https://github.com/magnusp/pi-extensions/tree/main/packages/pi-pstack#readme",
 	"publishConfig": {
 		"access": "public"
 	},
@@ -37,6 +37,9 @@
 	],
 	"peerDependencies": {
 		"@earendil-works/pi-coding-agent": "*"
+	},
+	"devDependencies": {
+		"@earendil-works/pi-coding-agent": "1.0.4"
 	},
 	"pi": {
 		"extensions": [
