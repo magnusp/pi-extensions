@@ -41,7 +41,7 @@ Rules that do not change without a new plan:
 ```bash
 npm whoami
 # Optional availability checks (404 means not published yet):
-npm view @magnusp/pi-safety version || true
+npm view @magnusp/pi-quiet version || true
 ```
 
 ## Contributor flow (version automation)
@@ -63,10 +63,8 @@ On push to `main`, `.github/workflows/release-pr.yml` does one of two things:
    Each tag push (via `RELEASE_TOKEN`) starts `publish.yml` once.
 
 ```text
-@magnusp/pi-safety@0.1.0
-@magnusp/pi-workflow@0.1.0
-@magnusp/pi-devtools@0.1.0
-@magnusp/pi-copilot-discovery@0.3.2
+@magnusp/pi-quiet@0.4.1
+@magnusp/pi-pstack@0.6.0
 ```
 
 Do not also `gh workflow run publish.yml` after the tag push.
@@ -114,7 +112,7 @@ For each tag it:
 Dry-run from Actions UI:
 
 - Workflow: **Publish package**
-- Input tag: `@magnusp/pi-safety@0.1.0`
+- Input tag: `@magnusp/pi-quiet@0.4.1`
 - `dry_run`: true
 
 ## Tarball sanity
@@ -137,9 +135,9 @@ Prefer CI. If you must publish locally:
 ```bash
 npm login
 pnpm check
-pnpm --filter @magnusp/pi-safety publish --access public
-git tag -a @magnusp/pi-safety@0.1.0 -m "Release @magnusp/pi-safety 0.1.0"
-git push origin @magnusp/pi-safety@0.1.0
+pnpm --filter @magnusp/pi-quiet publish --access public
+git tag -a @magnusp/pi-quiet@0.4.1 -m "Release @magnusp/pi-quiet 0.4.1"
+git push origin @magnusp/pi-quiet@0.4.1
 ```
 
 Caution: `pnpm -r publish` attempts every non-private package. Prefer per-package or tag-driven CI.
@@ -154,12 +152,12 @@ Caution: `pnpm -r publish` attempts every non-private package. Prefer per-packag
 node scripts/tag-packages.mjs --apply --push
 ```
 
-Suggested first-publish order: `pi-safety`, `pi-devtools`, `pi-workflow`, then `pi-copilot-discovery`.
+Suggested first-publish order: `pi-quiet`, then `pi-pstack`.
 
 4. Confirm each tag's **Publish package** run, npm page, and:
 
 ```bash
-pi install npm:@magnusp/pi-safety
+pi install npm:@magnusp/pi-quiet
 ```
 
 5. Later releases use changesets + Version PR only.
