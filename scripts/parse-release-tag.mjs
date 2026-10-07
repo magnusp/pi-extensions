@@ -17,7 +17,7 @@ export function parseReleaseTag(tag) {
   const match = TAG_RE.exec(normalized);
   if (!match) {
     throw new Error(
-      `invalid release tag "${normalized}"; expected @magnusp/<pkg>@<semver> (e.g. @magnusp/pi-safety@0.1.0)`,
+      `invalid release tag "${normalized}"; expected @magnusp/<pkg>@<semver> (e.g. @magnusp/pi-quiet@0.4.1)`,
     );
   }
   return { packageName: match[1], version: match[2] };

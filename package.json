@@ -2,7 +2,7 @@
   "name": "pi-extensions",
   "private": true,
   "description": "Monorepo of Pi coding agent extensions by @magnusp",
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "pnpm@12.10.1",
   "keywords": [
     "pi-package"
   ],
