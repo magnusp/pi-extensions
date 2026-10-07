@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # Keeps the SHA pins in the token-holding workflows (publish.yml, release-pr.yml)
+  # current. Dependabot rewrites `uses: owner/action@<sha> # v4` in place.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "ci"
+    labels:
+      - dependencies
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "deps"
+    labels:
+      - dependencies
