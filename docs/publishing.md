@@ -201,7 +201,7 @@ npm deprecate @magnusp/<pkg>@<ver> "reason; use @magnusp/<pkg>@X.Y.Z"
 
 ### Bumping pinned actions
 
-Pinned SHAs must be moved forward manually when upstream releases:
+Pinned SHAs must be moved forward when upstream releases. `.github/dependabot.yml` opens a weekly `github-actions` PR that rewrites them in place; to bump by hand:
 
 ```bash
 gh api repos/actions/checkout/git/ref/tags/v4 --jq .object.sha
