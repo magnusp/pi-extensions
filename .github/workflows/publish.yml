@@ -23,6 +23,8 @@ concurrency:
 
 permissions:
   contents: write
+  # npm publish --provenance attests via GitHub OIDC; keep id-token read-only elsewhere.
+  id-token: write
 
 jobs:
   publish:
@@ -33,27 +35,63 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       startsWith(github.ref, 'refs/tags/@magnusp/')
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
-
-      - name: Resolve tag
+      # Validate the dispatch input against the release tag format BEFORE checkout,
+      # so an untrusted tag never reaches `ref:` or any shell. Values arrive via env:
+      # and are never interpolated into run: blocks.
+      - name: Validate release tag
         id: meta
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_TAG: ${{ inputs.tag }}
+          PUSH_REF_NAME: ${{ github.ref_name }}
         run: |
           set -euo pipefail
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            TAG="${{ inputs.tag }}"
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            TAG="$DISPATCH_TAG"
           else
-            TAG="${{ github.ref_name }}"
+            TAG="$PUSH_REF_NAME"
+          fi
+          if [[ ! "$TAG" =~ ^@[a-z0-9][a-z0-9._-]*/[a-z0-9][a-z0-9._-]*@[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Invalid release tag: $TAG"
+            echo "Expected <scope>/<package>@<major>.<minor>.<patch>[-prerelease][+build]"
+            exit 1
           fi
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ steps.meta.outputs.tag }}
+          # Full history + tags so the tag -> mainline ancestry check can run.
+          fetch-depth: 0
+
+      - name: Resolve package and version
+        env:
+          TAG: ${{ steps.meta.outputs.tag }}
+        run: |
+          set -euo pipefail
           PARSED=$(node scripts/parse-release-tag.mjs "$TAG")
           echo "package_name=$(node -e 'console.log(JSON.parse(process.argv[1]).packageName)' "$PARSED")" >> "$GITHUB_OUTPUT"
           echo "version=$(node -e 'console.log(JSON.parse(process.argv[1]).version)' "$PARSED")" >> "$GITHUB_OUTPUT"
 
+      # Refuse to publish anything that is not on the default branch: a tag pushed
+      # from a fork, stale branch, or hand-made commit must not reach npm.
+      - name: Verify tag is on the mainline
+        env:
+          MAINLINE: ${{ github.event.repository.default_branch }}
+          TAG: ${{ steps.meta.outputs.tag }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "$MAINLINE"
+          TAG_SHA=$(git rev-list -n 1 "refs/tags/$TAG")
+          if ! git merge-base --is-ancestor "$TAG_SHA" "origin/$MAINLINE"; then
+            echo "::error::Tag $TAG ($TAG_SHA) is not an ancestor of origin/$MAINLINE; refusing to publish."
+            exit 1
+          fi
+          echo "Tag $TAG is on origin/$MAINLINE"
+
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: lts/*
           registry-url: https://registry.npmjs.org
@@ -72,10 +110,11 @@ jobs:
 
       - name: Resolve package directory and verify version
         id: pkg
+        env:
+          PKG_NAME: ${{ steps.meta.outputs.package_name }}
+          TAG_VERSION: ${{ steps.meta.outputs.version }}
         run: |
           set -euo pipefail
-          PKG_NAME="${{ steps.meta.outputs.package_name }}"
-          TAG_VERSION="${{ steps.meta.outputs.version }}"
           DIR=$(node --input-type=module -e '
             import { readdirSync, readFileSync, existsSync } from "node:fs";
             import { join } from "node:path";
@@ -108,9 +147,11 @@ jobs:
 
       - name: Check if version already on npm
         id: npm_exists
+        env:
+          PKG_SPEC: ${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}
         run: |
           set +e
-          npm view "${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}" version
+          npm view "$PKG_SPEC" version
           code=$?
           set -e
           if [ "$code" -eq 0 ]; then
@@ -127,7 +168,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           set +e
-          out=$(npm publish --access public 2>&1)
+          out=$(npm publish --access public --provenance 2>&1)
           code=$?
           set -e
           printf '%s\n' "$out"
@@ -151,7 +192,10 @@ jobs:
           # Prefer RELEASE_TOKEN (same PAT as release-pr); fall back to GITHUB_TOKEN for releases only.
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
           TAG: ${{ steps.meta.outputs.tag }}
+          PKG_DIR: ${{ steps.pkg.outputs.dir }}
           TITLE: ${{ steps.pkg.outputs.name }} ${{ steps.pkg.outputs.version }}
+          PKG_NAME: ${{ steps.pkg.outputs.name }}
+          PKG_VERSION: ${{ steps.pkg.outputs.version }}
         run: |
           set -euo pipefail
           if gh release view "$TAG" >/dev/null 2>&1; then
@@ -160,16 +204,16 @@ jobs:
           fi
           NOTES_FILE=$(mktemp)
           {
-            echo "### ${{ steps.pkg.outputs.name }} ${{ steps.pkg.outputs.version }}"
+            echo "### $PKG_NAME $PKG_VERSION"
             echo
-            echo "Published to npm as \`${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}\`."
+            echo "Published to npm as \`$PKG_NAME@$PKG_VERSION\`."
             echo
             echo "Install:"
             echo
             echo '```bash'
-            echo "pi install npm:${{ steps.pkg.outputs.name }}"
+            echo "pi install npm:$PKG_NAME"
             echo '```'
-            if [ -f "${{ steps.pkg.outputs.dir }}/CHANGELOG.md" ]; then
+            if [ -f "$PKG_DIR/CHANGELOG.md" ]; then
               echo
               echo "See package CHANGELOG.md for details."
             fi

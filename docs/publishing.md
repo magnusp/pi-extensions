@@ -19,6 +19,7 @@ Rules that do not change without a new plan:
 
 - Root package stays `"private": true` and is never published
 - Never republish an existing version; always bump first
+- A tag must point at a commit already reachable from the default branch; publish refuses otherwise
 - Do not store npm tokens in the git repo
 - CI publish uses the `NPM_TOKEN` repository secret (granular automation token preferred)
 - Local `npm login` publish is emergency-only; CI is primary
@@ -101,13 +102,21 @@ Packages use **independent** versions.
 
 For each tag it:
 
-1. Parses `@magnusp/<name>@<semver>` (`scripts/parse-release-tag.mjs`)
-2. Checks out the tagged commit
-3. Runs `pnpm check` and `npm pack --dry-run` in that package
-4. Fails if tag version ≠ `package.json` version
-5. Skips `npm publish` if that version already exists on the registry
-6. Publishes with `NODE_AUTH_TOKEN` / `NPM_TOKEN` when needed (also treats "already published" races as success)
-7. Creates a GitHub Release for the tag (idempotent if it already exists)
+1. Validates the tag shape (`@magnusp/<name>@<semver>[-pre][+build]`) **before checkout** — an invalid dispatch input never reaches `ref:` or a shell
+2. Parses `@magnusp/<name>@<semver>` (`scripts/parse-release-tag.mjs`)
+3. Checks out the tagged commit with full history
+4. Verifies the tagged commit is an **ancestor of the default branch tip** (a tag pushed from a fork or an unmerged branch fails the run)
+5. Runs `pnpm check` and `npm pack --dry-run` in that package
+6. Fails if tag version ≠ `package.json` version
+7. Skips `npm publish` if that version already exists on the registry
+8. Publishes with `NODE_AUTH_TOKEN` / `NPM_TOKEN` and `--provenance` when needed (also treats "already published" races as success)
+9. Creates a GitHub Release for the tag (idempotent if it already exists)
+
+### Supply-chain hardening in CI
+
+- `publish.yml` and `release-pr.yml` (the workflows that can touch `NPM_TOKEN` / `RELEASE_TOKEN`) pin every action to a full commit SHA, with the human-readable tag in a trailing comment. `ci.yml` holds no token and stays on floating tags.
+- No untrusted input (`inputs.tag`, `github.ref_name`, step outputs) is interpolated into a `run:` block; everything crosses into bash through `env:`.
+- `publish.yml` runs with `id-token: write` so `npm publish --provenance` can attest the release against the workflow run. Provenance needs a public repo; for a private repo drop `--provenance` and the `id-token` permission.
 
 Dry-run from Actions UI:
 
@@ -187,8 +196,20 @@ npm deprecate @magnusp/<pkg>@<ver> "reason; use @magnusp/<pkg>@X.Y.Z"
 | Workflow | Trigger | Role |
 |---|---|---|
 | `ci.yml` | PR + push to default branch | `pnpm check` + `pnpm test`; no npm token |
-| `release-pr.yml` | push to default branch | Version PR when changesets exist; otherwise missing package tags |
-| `publish.yml` | package tags / manual dispatch | npm publish + GitHub Release (one run per tag) |
+| `release-pr.yml` | push to default branch | Version PR when changesets exist; otherwise missing package tags (actions SHA-pinned) |
+| `publish.yml` | package tags / manual dispatch | npm publish + GitHub Release (one run per tag; actions SHA-pinned) |
+
+### Bumping pinned actions
+
+Pinned SHAs must be moved forward manually when upstream releases:
+
+```bash
+gh api repos/actions/checkout/git/ref/tags/v4 --jq .object.sha
+gh api repos/actions/setup-node/git/ref/tags/v4 --jq .object.sha
+gh api repos/changesets/action/git/ref/tags/v1 --jq .object.sha
+```
+
+Replace the SHA in both workflows and keep the `# v4` / `# v1` comment in sync.
 
 ## Install path truth in docs
 
@@ -222,5 +243,7 @@ Admins may still bypass PR rules for emergency release infra fixes.
 - Matching GitHub Release exists per published tag
 - Already-published versions skip npm publish without failing the release step
 - No npm token in git; `ci.yml` does not receive `NPM_TOKEN`
+- Actions in the token-holding workflows are pinned to commit SHAs
+- Publish runs only for validated tags whose commit is on the default branch, and publishes with `--provenance`
 - `docs/publishing.md` matches the automated path
 - `pnpm check` and `pnpm test` pass on the default branch
